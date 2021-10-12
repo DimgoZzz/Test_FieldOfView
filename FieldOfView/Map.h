@@ -12,6 +12,7 @@ public:
 	int		AddUnit(float posX, float posY, float dirX, float dirY, float fovAngle, float fovRange);
 	Unit&	GetUnit(int32 id);
 	void	DeleteUnit(int32 id);
+	inline	int32	GetUnitNumber() { return unitArr.size(); }
 #pragma endregion GetSet
 protected:
 	IntPoint mapSize{ 10,10 };
