@@ -17,7 +17,7 @@ void ConsoleApp::Start()
 
 	for (int i = 0; i < 10000; ++i)
 	{
-		map.AddUnit((i%100)/10, (i % 100)/10, dirs[i%8].GetIntX(), dirs[i % 8].GetIntY(), 135.5, 2);
+		map.AddUnit((i%100)/10.f, (i % 100)/10.f, dirs[i%8].GetX(), dirs[i % 8].GetY(), 135.5, 2);
 	}
 
 	int64 result = 0;

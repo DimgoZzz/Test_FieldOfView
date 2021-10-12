@@ -13,7 +13,7 @@ Unit::Unit(float posX, float PosY, float dirX, float dirY, float fovAngle, float
 bool Unit::CanSeeUnit(Unit const& unit)const
 {
 	FloatPoint distance = (position - unit.GetPosition()).Abs();
-	if (fieldOfViewRange >= distance.Length().GetX())
+	if (fieldOfViewRange*fieldOfViewRange >= distance.LengthPow2())
 	{
 		// <...................>	//Vec Directions
 		// ..|.......P.......|..	//Point

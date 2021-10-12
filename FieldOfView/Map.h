@@ -10,13 +10,14 @@ public:
 	inline IntPoint GetMapSize()						{ return mapSize; }
 
 	int		AddUnit(float posX, float posY, float dirX, float dirY, float fovAngle, float fovRange);
-	Unit&	GetUnit(int32 id);
-	void	DeleteUnit(int32 id);
-	inline	int32	GetUnitNumber() { return unitArr.size(); }
+	Unit&	GetUnit(uint32 id);
+	void	DeleteUnit(uint32 id);
+	inline	uint32	GetUnitCount() { return UnitCount; }
 #pragma endregion GetSet
 protected:
 	IntPoint mapSize{ 10,10 };
 
+	uint32 UnitCount = 0;
 	std::vector<Unit> unitArr;
 };
 

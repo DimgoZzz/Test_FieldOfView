@@ -125,6 +125,13 @@ public:
 		temp.mXMVec = DirectX::XMVector2Length(mXMVec);
 		return temp;
 	};
+	inline float LengthPow2() const
+	{
+		float x = GetX();
+		float y = GetY();
+
+		return (x*x+y*y);
+	};
 	inline SSEVector2 GetNewRotated(float angle)const
 	{ 
 		SSEVector2 temp = DirectX::XMVector2Transform(mXMVec, DirectX::XMMatrixRotationZ(DirectX::XMConvertToRadians(-angle)));
