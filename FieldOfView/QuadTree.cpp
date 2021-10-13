@@ -1,13 +1,15 @@
 #include "QuadTree.h"
 #include "WinMin.h"
 
+#pragma region StaticInit
 uint32 QuadTree::lastID = 0;
 QuadTree* QuadTree::rootPtr = nullptr;
 bool QuadTree::isTreeReady = false;
 std::queue<TreeAgent*> QuadTree::instertQueue = std::queue<TreeAgent*>();
 std::unordered_map<uint32, TreeAgent> QuadTree::globalAgentMap = std::unordered_map<uint32, TreeAgent>();
+#pragma endregion StaticInit
 
-using UMPair = std::pair<uint32,TreeAgent>;
+using UMPair = std::pair<uint32, TreeAgent>;
 
 QuadTree::QuadTree(Box inbounds, int8 level) : bounds(inbounds)
 {
@@ -46,15 +48,31 @@ void QuadTree::BuildTree()
 	//SE
 	childTreesArray.push_back(QuadTree(Box(	bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f,
 											bounds.width / 2.f,bounds.height / 2.f), levelOfQuadTree + 1));
-
-	if (levelOfQuadTree + 1 < maxLevel) { childTreesArray[0].BuildTree(); }
-	if (levelOfQuadTree + 1 < maxLevel) { childTreesArray[1].BuildTree(); }
-	if (levelOfQuadTree + 1 < maxLevel) { childTreesArray[2].BuildTree(); }
-	if (levelOfQuadTree + 1 < maxLevel) { childTreesArray[3].BuildTree(); }
+	if (levelOfQuadTree + 1 < maxLevel)
+	{
+		for (int8 i = 0; i < 4; ++i)
+		{
+			childTreesArray[i].BuildTree();
+		}
+	}
+	else 
+	for (int8 i = 0; i < 4; ++i)
+	{
+		childTreesArray[i].isFinalBranch = true;
+	}
 }
 
 void QuadTree::UpdateTree()
 {
+	TreeAgent* agentref = nullptr;
+	while (!instertQueue.empty())
+	{
+		agentref = instertQueue.front();
+		bool succes = FeedAgentToTree(agentref);
+		if (!succes) { CritErr("Cant Feed Agent to Tree"); }
+		instertQueue.pop();
+	}
+	
 }
 
 void QuadTree::AddAgent(TreeAgent agent)
@@ -84,6 +102,45 @@ void QuadTree::ClearStaticData()
 	
 }
 
+bool QuadTree::FeedAgentToTree(TreeAgent* agentPtr)
+{
+	if (isFinalBranch)
+	//Insert
+	{
+		treeAgents.push_back(agentPtr);
+		return true;
+	}
+	else
+	//Find FinalBranch
+	{
+		int8 childcaneatagent = -1;
+		//GetChildThatCanEatAgent()
+		for (int8 i=0; i<childTreesArray.size();++i)
+		{
+			if (CanEatAgent(agentPtr)) { childcaneatagent = i; break; }
+		}
+
+		//FeedAgentToChile
+		if (childcaneatagent != -1)
+		{
+			if (childTreesArray[childcaneatagent].FeedAgentToTree(agentPtr)) { return true; }
+			else { CritErr("uhh"); };
+		}
+		//IfNoChildCanEat
+		//Attach to self
+		treeAgents.push_back(agentPtr);
+		
+		return true;
+	}
+
+	return false;
+}
+
+bool QuadTree::CanEatAgent(TreeAgent* agentPtr)
+{
+	return	(bounds.left< agentPtr->GetLeftBound())&& (bounds.GetRight() > agentPtr->GetLeftBound())&&
+			(bounds.top < agentPtr->GetLeftBound())&& (bounds.GetBottom() > agentPtr->GetLeftBound());
+}
 
 
 

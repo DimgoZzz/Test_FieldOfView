@@ -31,6 +31,8 @@ public:
 
 private:
 	static void ClearStaticData();
+	bool FeedAgentToTree(TreeAgent* agentPtr);
+	bool CanEatAgent(TreeAgent* agentPtr);
 
 	static std::unordered_map<uint32, TreeAgent> globalAgentMap;
 	static uint32 lastID;
@@ -38,7 +40,6 @@ private:
 	static std::queue<TreeAgent*> instertQueue;
 	//List Of Units Under This Tree
 	std::list<TreeAgent*> treeAgents;
-
 	//Tree Bounding Box
 	Box bounds;
 	QuadTree* parentTreePtr = nullptr;
@@ -47,16 +48,11 @@ private:
 
 	//Params
 	static const int8	numChilds = 4;
-
 	bool isFinalBranch = false;
 	bool isRoot = false;
-
 	static QuadTree* rootPtr;
-
 	static bool isTreeReady;
-
 	int8 levelOfQuadTree = 0;
-
 	static const int8 maxLevel = 2;
 
 	//For Rendering

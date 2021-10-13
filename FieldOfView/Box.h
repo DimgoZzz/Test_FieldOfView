@@ -21,12 +21,12 @@ public:
 
     }
 
-    float GetRight() const noexcept
+    inline float GetRight() const noexcept
     {
         return left + width;
     }
 
-    float GetBottom() const noexcept
+    inline float GetBottom() const noexcept
     {
         return top + height;
     }

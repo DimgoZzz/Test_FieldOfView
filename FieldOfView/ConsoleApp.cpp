@@ -8,12 +8,13 @@ ConsoleApp::ConsoleApp()
     CreateAppWindow();
     quadTreePtr = QuadTree::MakeNewRoot();
     quadTreePtr->BuildTree();
-    quadTreePtr->AddAgent(TreeAgent(1.f, 1.f));
-    quadTreePtr->AddAgent(TreeAgent(1.f, 2.f));
-    quadTreePtr->AddAgent(TreeAgent(5.f, 1.f));
-    quadTreePtr->AddAgent(TreeAgent(3.f, 12.f));
-    quadTreePtr->AddAgent(TreeAgent(53.f, 23.f));
-    quadTreePtr->AddAgent(TreeAgent(53.f, 22.f));
+    srand(4541);
+    for (int32 i = 0; i < 10000; ++i)
+    {
+        quadTreePtr->AddAgent(TreeAgent((rand()%4000)/10.f, (rand() % 4000) / 10.f));
+    }
+
+    quadTreePtr->UpdateTree();
 }
 
 ConsoleApp::~ConsoleApp()

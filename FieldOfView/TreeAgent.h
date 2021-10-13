@@ -10,6 +10,10 @@ public:
 
 	void SetID(uint32 id) { ID = id; }
 
+	inline float GetLeftBound() { return agentLocation.GetX() - AppSettings::AgentSightRadius; }
+	inline float GetRightBound(){ return agentLocation.GetX() + AppSettings::AgentSightRadius; }
+	inline float GetUpBound()	{ return agentLocation.GetX() - AppSettings::AgentSightRadius; }
+	inline float GetDownBound() { return agentLocation.GetX() + AppSettings::AgentSightRadius; }
 	//TO DO Allocator 
 	FloatPoint agentLocation;
 
