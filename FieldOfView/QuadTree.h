@@ -4,59 +4,66 @@
 #include <unordered_map>
 
 #include "DataClasses.h"
+#include "FunctionLibrary.h"
 #include "Box.h"
 #include "TreeAgent.h"
 
-enum class TreeDirection :uint8
-{
-	NorthWest = 0,
-	NorthEast = 1,
-	SouthWest = 2,
-	SouthEast = 3
-};
+
 
 class QuadTree
 {
+#pragma region Static 
 public:
-	QuadTree(Box inbounds, int8 currLevel);
-	static QuadTree* MakeNewRoot();
+	static QuadTree* MakeRoot();
 	static QuadTree* GetRoot();
+private:
+	static uint32 NextID();
+	static uint32 lastID;
+
+	//ClearStaticData For TreeRestart
+	static void ClearStaticData();
+
+	//Array Global Agent-ID
+	static std::unordered_map<uint32, TreeAgent> globalAgentMap;
+	//GlobalQueueForNewAgentsToInsert
+	static std::queue<TreeAgent*> instertQueue;
+
+
+	static const int8	numChilds = 4;
+	static const int8	maxLevel = 2;
+	static QuadTree*	rootPtr;
+
+#pragma endregion Static 
+public:
+	QuadTree(Box box, int8 dlvl = 0, QuadTree* parent = nullptr);
+	~QuadTree();
 
 	void BuildTree();
 	void UpdateTree();
-	void DoVisionChecks();
+	//void PerformVisionChecks();
 
 	void AddAgent(TreeAgent agent);
-
-	~QuadTree();
-
 private:
-	static void ClearStaticData();
-	bool FeedAgentToTree(TreeAgent* agentPtr);
-	bool CanEatAgent(TreeAgent* agentPtr);
+	//bool FeedAgentToTree(TreeAgent* agentPtr);
+	//bool CanEatAgent(TreeAgent* agentPtr);
 
-	static std::unordered_map<uint32, TreeAgent> globalAgentMap;
-	static uint32 lastID;
-	//GlobalQueueForNewAgents
-	static std::queue<TreeAgent*> instertQueue;
-	//List Of Units Under This Tree
-	std::list<TreeAgent*> treeAgents;
 	//Tree Bounding Box
 	Box bounds;
-	QuadTree* parentTreePtr = nullptr;
+	//List Of Agents Under This Tree
+	std::list<TreeAgent*> treeAgents;
 	//Vector of Child Tree Branches
 	std::vector<QuadTree> childTreesArray;
-
+	
+	QuadTree* parentTreePtr = nullptr;
 	//Params
-	static const int8	numChilds = 4;
-	bool isFinalBranch = false;
-	bool isRoot = false;
-	static QuadTree* rootPtr;
-	static bool isTreeReady;
-	int8 levelOfQuadTree = 0;
-	static const int8 maxLevel = 2;
+	int8 depthLevel = -1;
+	
 
+
+
+///////////////////////////////////////
 	//For Rendering
 	friend class Renderer;
 	friend class ConsoleApp;
+///////////////////////////////////////
 };

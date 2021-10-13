@@ -30,3 +30,37 @@ bool TreeAgent::CanSeeAgent(TreeAgent* agent) const
 
 	return false;
 }
+
+int GetQuadrant(const TreeAgent* agent, const Box* treebounds)
+{
+	auto center = treebounds->GetCenter();
+	// West
+	//if (agent->GetRightBound() < center.GetX())
+	//{
+	//	// North West
+	//	if (valueBox.GetBottom() < center.GetY())
+	//		return 0;
+	//	// South West
+	//	else if (valueBox.top >= center.GetY())
+	//		return 2;
+	//	// Not contained in any quadrant
+	//	else
+	//		return -1;
+	//}
+	//// East
+	//else if (valueBox.left >= center.GetX())
+	//{
+	//	// North East
+	//	if (valueBox.GetBottom() < center.GetY())
+	//		return 1;
+	//	// South East
+	//	else if (valueBox.top >= center.GetY())
+	//		return 3;
+	//	// Not contained in any quadrant
+	//	else
+	//		return -1;
+	//}
+	//// Not contained in any quadrant
+	//else
+	//	return -1;
+}

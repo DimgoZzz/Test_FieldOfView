@@ -31,3 +31,4 @@ public:
 #pragma endregion Fields
 };
 
+int GetQuadrant(const TreeAgent* agent, const Box treebounds);

@@ -6,13 +6,13 @@
 ConsoleApp::ConsoleApp()
 {
     renderer.Init(&quadTreePtr);
+    quadTreePtr = QuadTree::MakeRoot();
 
     DogFW::HighResClock clock;
 
     ///////////////TreeInit
     clock.Measure();
-
-    quadTreePtr = QuadTree::MakeNewRoot();
+   
     quadTreePtr->BuildTree();
 
     std::cout << "QuadTree Init taked: " << clock.StopMeasure() << " ms" << std::endl;
@@ -32,16 +32,16 @@ ConsoleApp::ConsoleApp()
     ///////////////
     
     ///////////////AgentsVisionCheck
-    clock.Measure();
-    for (auto& agent : quadTreePtr->treeAgents)
-    {
-       // for ()
-    }
-    for (int64 i = 0; i < 10000; ++i)
-    {
-        //quadTreePtr->childTreesArray
-    }
-    std::cout << "Vision Checks taked: " << clock.StopMeasure() << " ms" << std::endl;
+    //clock.Measure();
+    //for (auto& agent : quadTreePtr->treeAgents)
+    //{
+    //   // for ()
+    //}
+    //for (int64 i = 0; i < 10000; ++i)
+    //{
+    //    //quadTreePtr->childTreesArray
+    //}
+    //std::cout << "Vision Checks taked: " << clock.StopMeasure() << " ms" << std::endl;
     ///////////////
 
 }

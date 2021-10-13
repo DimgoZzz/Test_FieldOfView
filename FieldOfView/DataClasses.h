@@ -30,6 +30,14 @@ enum class PointToVectorPosition : int8
 	Right = 2
 };
 
+enum class TreeDirection :uint8
+{
+	NorthWest = 0,
+	NorthEast = 1,
+	SouthWest = 2,
+	SouthEast = 3
+};
+
 class AppSettings
 {
 public:

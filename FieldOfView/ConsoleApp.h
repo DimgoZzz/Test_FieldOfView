@@ -3,10 +3,6 @@
 #include "Renderer.h"
 #include "QuadTree.h"
 
-
-
-
-
 class ConsoleApp
 {
 public:
@@ -15,7 +11,7 @@ public:
 
 	void Start();
 private:
-	QuadTree* quadTreePtr = nullptr;
+	QuadTree* quadTreePtr;
 	Renderer renderer;
 };
 

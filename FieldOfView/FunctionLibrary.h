@@ -1,5 +1,7 @@
 #pragma once
 #include "DataClasses.h"
+#include "Box.h"
+#include "TreeAgent.h"
 
 //Check where the point lies relative to the vector
 inline PointToVectorPosition CheckPointToVectorPosition(const FloatPoint& pointLoc, const FloatPoint& vecOrigin, const FloatPoint& vecDirection)
