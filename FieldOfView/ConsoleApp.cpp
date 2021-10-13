@@ -35,6 +35,7 @@ void ConsoleApp::Start()
         }
 
         windowptr->clear(sf::Color::Black);
+
         AddAgentsToRenderData();
         
         for(int64 i = rects.size()-1;i>-1;--i)
@@ -61,7 +62,7 @@ void ConsoleApp::AddBGQuadTreeToRenderData()
     rects.clear();
     int32 i = 0;
    //Main Frame, Zero Level
-    rects.emplace_back(sf::Vector2f(quadTreePtr->bounds.width-2, quadTreePtr->bounds.height - 2));
+    rects.emplace_back(sf::Vector2f(quadTreePtr->bounds.width*2-2, quadTreePtr->bounds.height*2 - 2));
     rects.back().setPosition(1, 1);
     rects[0].setOutlineColor(sf::Color::Blue);
     rects[0].setFillColor(sf::Color::Transparent);
@@ -71,8 +72,8 @@ void ConsoleApp::AddBGQuadTreeToRenderData()
     for (auto& element : quadTreePtr->childTreesArray)
     {
 
-        rects.emplace_back(sf::Vector2f(element.bounds.width, element.bounds.height));
-        rects.back().setPosition(element.bounds.left, element.bounds.top);
+        rects.emplace_back(sf::Vector2f(element.bounds.width * 2, element.bounds.height * 2));
+        rects.back().setPosition(element.bounds.left * 2, element.bounds.top * 2);
         rects[i].setOutlineColor(sf::Color::Red);
         rects[i].setFillColor(sf::Color::Transparent);
         rects[i].setOutlineThickness(1.f);
@@ -80,8 +81,8 @@ void ConsoleApp::AddBGQuadTreeToRenderData()
         //Second Level
         for (auto& elem2 : element.childTreesArray)
         {
-            rects.emplace_back(sf::Vector2f(elem2.bounds.width, elem2.bounds.height));
-            rects.back().setPosition(elem2.bounds.left, elem2.bounds.top);
+            rects.emplace_back(sf::Vector2f(elem2.bounds.width * 2, elem2.bounds.height * 2));
+            rects.back().setPosition(elem2.bounds.left * 2, elem2.bounds.top * 2);
             rects[i].setOutlineColor(sf::Color::Green);
             rects[i].setFillColor(sf::Color::Transparent);
             rects[i].setOutlineThickness(1.f);
@@ -92,19 +93,15 @@ void ConsoleApp::AddBGQuadTreeToRenderData()
 
 void ConsoleApp::AddAgentsToRenderData()
 {
-
     agents.clear();
-    int32 i = 0;
-    for (uint32 i= quadTreePtr->lastID; i>-1; --i)
+    for (auto& element : quadTreePtr->globalAgentMap)
     {
-        auto& element = quadTreePtr->globalAgentMap.at(i);
-        sf::CircleShape temp(2);
+        sf::CircleShape temp(1);
         
-        temp.setPosition(element.agentLocation.GetX(), element.agentLocation.GetY());
+        temp.setPosition(element.second.agentLocation.GetX()*2, element.second.agentLocation.GetY()*2);
         temp.setOutlineColor(sf::Color::White);
         temp.setFillColor(sf::Color::Cyan);
-        temp.setOutlineThickness(200);
+        temp.setOutlineThickness(1.f);
         agents.push_back(temp);
-        ++i;
     }
 }
