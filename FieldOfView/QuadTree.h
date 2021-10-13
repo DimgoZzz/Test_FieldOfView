@@ -18,18 +18,14 @@ enum class TreeDirection :uint8
 class QuadTree
 {
 public:
-	QuadTree(Box inbounds);
-	QuadTree* MakeNewRoot();
+	QuadTree(Box inbounds, int8 currLevel);
+	static QuadTree* MakeNewRoot();
 	static QuadTree* GetRoot();
-	//QuadTree(Box region, std::list<TreeAgent*> objList);//For child branches
 
 	void BuildTree();
 	void UpdateTree();
 
 	void AddAgent(TreeAgent agent);
-
-
-
 
 	~QuadTree();
 
@@ -58,4 +54,11 @@ private:
 	static QuadTree* rootPtr;
 
 	static bool isTreeReady;
+
+	int8 levelOfQuadTree = 0;
+
+	static const int8 maxLevel = 2;
+
+	//For Rendering
+	friend class ConsoleApp;
 };

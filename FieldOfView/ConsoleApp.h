@@ -1,5 +1,7 @@
 #pragma once
-#include "Map.h"
+#include <SFML/Graphics.hpp>
+#include "QuadTree.h"
+
 
 
 
@@ -7,10 +9,24 @@
 class ConsoleApp
 {
 public:
-	void Start();
-protected:
+	ConsoleApp();
+	~ConsoleApp();
 
+	void Start();
 private:
+	QuadTree* quadTreePtr = nullptr;
+
+#pragma region Render
+private:
+	sf::RenderWindow* windowptr = nullptr;
+	std::vector<sf::RectangleShape> rects;
+	std::vector<sf::CircleShape> agents;
+
+	void CreateAppWindow();
+	void AddBGQuadTreeToRenderData();
+	void AddAgentsToRenderData();
+
+#pragma endregion Render
 
 };
 
