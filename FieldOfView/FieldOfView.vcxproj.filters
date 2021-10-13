@@ -25,12 +25,6 @@
     <ClCompile Include="ConsoleApp.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="Unit.cpp">
-      <Filter>Source Files\Units</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files\Units</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files\System\Windows</Filter>
     </ClCompile>
@@ -56,12 +50,6 @@
   <ItemGroup>
     <ClInclude Include="ConsoleApp.h">
       <Filter>Source Files\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Unit.h">
-      <Filter>Source Files\Units</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Source Files\Units</Filter>
     </ClInclude>
     <ClInclude Include="WinMin.h">
       <Filter>Source Files\System\Windows</Filter>

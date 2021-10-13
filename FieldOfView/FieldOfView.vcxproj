@@ -101,22 +101,18 @@
     <ClCompile Include="DataClasses.cpp" />
     <ClCompile Include="HighResClock.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Map.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="SSEVector.cpp" />
     <ClCompile Include="TreeAgent.cpp" />
-    <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Box.h" />
     <ClInclude Include="ConsoleApp.h" />
     <ClInclude Include="DataClasses.h" />
     <ClInclude Include="HighResClock.h" />
-    <ClInclude Include="Map.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="SSEVector.h" />
     <ClInclude Include="TreeAgent.h" />
-    <ClInclude Include="Unit.h" />
     <ClInclude Include="WinMin.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

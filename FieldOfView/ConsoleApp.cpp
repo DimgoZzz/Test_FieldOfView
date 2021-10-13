@@ -5,16 +5,32 @@
 
 ConsoleApp::ConsoleApp()
 {
+    DogFW::HighResClock clock;
+    clock.Measure();
     CreateAppWindow();
     quadTreePtr = QuadTree::MakeNewRoot();
     quadTreePtr->BuildTree();
+    std::cout << "QuadTree Init taked: " << clock.StopMeasure() << " ms" << std::endl;
+    clock.Measure();
     srand(4541);
     for (int32 i = 0; i < 10000; ++i)
     {
-        quadTreePtr->AddAgent(TreeAgent((rand()%4000)/10.f, (rand() % 4000) / 10.f));
+        quadTreePtr->AddAgent(TreeAgent((rand() % 4000) / 10.f, (rand() % 4000) / 10.f, (rand() % 10) / 10.f, (rand() % 10) / 10.f));
     }
-
     quadTreePtr->UpdateTree();
+    std::cout << "QuadTree Filling taked: " << clock.StopMeasure() << " ms" << std::endl;
+
+    clock.Measure();
+    for (auto& agent : quadTreePtr->treeAgents)
+    {
+       // for ()
+    }
+    for (int64 i = 0; i < 10000; ++i)
+    {
+        //quadTreePtr->childTreesArray
+    }
+    std::cout << "Vision Checks taked: " << clock.StopMeasure() << " ms" << std::endl;
+
 }
 
 ConsoleApp::~ConsoleApp()

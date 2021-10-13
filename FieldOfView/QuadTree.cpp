@@ -75,6 +75,28 @@ void QuadTree::UpdateTree()
 	
 }
 
+void QuadTree::DoVisionChecks()
+{
+	
+	for (auto& a1 : treeAgents)
+	{	
+		//Do checks with tree attached agents 
+		for (auto& a2 : treeAgents)
+		{
+			a1->seeCount += a1->CanSeeUnit(a2);
+		}
+		//Do Checks with child trees agents
+		for (auto& t1 : childTreesArray)
+		{
+			for (auto& a2 : t1.treeAgents)
+			{
+				a1->seeCount += a1->CanSeeUnit(a2);
+			}
+		}
+
+	}
+}
+
 void QuadTree::AddAgent(TreeAgent agent)
 {
 	//insert agent data to global map
@@ -102,6 +124,40 @@ void QuadTree::ClearStaticData()
 	
 }
 
+int getQuadrant(const TreeAgent nodeBox, const Box valueBox)
+{
+	auto center = nodeBox.agentLocation;
+	// West
+	if (valueBox.GetRight() < center.GetX())
+	{
+		// North West
+		if (valueBox.GetBottom() < center.GetY())
+			return 0;
+		// South West
+		else if (valueBox.top >= center.GetY())
+			return 2;
+		// Not contained in any quadrant
+		else
+			return -1;
+	}
+	// East
+	else if (valueBox.left >= center.GetX())
+	{
+		// North East
+		if (valueBox.GetBottom() < center.GetY())
+			return 1;
+		// South East
+		else if (valueBox.top >= center.GetY())
+			return 3;
+		// Not contained in any quadrant
+		else
+			return -1;
+	}
+	// Not contained in any quadrant
+	else
+		return -1;
+}
+
 bool QuadTree::FeedAgentToTree(TreeAgent* agentPtr)
 {
 	if (isFinalBranch)
@@ -113,12 +169,12 @@ bool QuadTree::FeedAgentToTree(TreeAgent* agentPtr)
 	else
 	//Find FinalBranch
 	{
-		int8 childcaneatagent = -1;
+		int8 childcaneatagent = getQuadrant(*agentPtr, bounds);;
 		//GetChildThatCanEatAgent()
-		for (int8 i=0; i<childTreesArray.size();++i)
-		{
-			if (CanEatAgent(agentPtr)) { childcaneatagent = i; break; }
-		}
+		//for (int8 i=0; i<childTreesArray.size();++i)
+		//{
+		//	if (CanEatAgent(agentPtr)) { childcaneatagent = i; break; }
+		//}
 
 		//FeedAgentToChile
 		if (childcaneatagent != -1)

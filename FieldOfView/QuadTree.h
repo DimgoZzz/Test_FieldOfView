@@ -24,6 +24,7 @@ public:
 
 	void BuildTree();
 	void UpdateTree();
+	void DoVisionChecks();
 
 	void AddAgent(TreeAgent agent);
 
