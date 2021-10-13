@@ -84,30 +84,45 @@ void QuadTree::UpdateTree()
 		instertQueue.pop();
 	}
 }
-//
-//void QuadTree::PerformVisionChecks()
-//{
-//
-//	for (auto& a1 : treeAgents)
-//	{
-//		//Do checks with tree attached agents 
-//		for (auto& a2 : treeAgents)
-//		{
-//			a1->seeCount += a1->CanSeeAgent(a2);
-//		}
-//		//Do Checks with child trees agents
-//		for (auto& t1 : childTreesArray)
-//		{
-//			for (auto& a2 : t1.treeAgents)
-//			{
-//				a1->seeCount += a1->CanSeeAgent(a2);
-//			}
-//		}
-//
-//	}
-//}
 
-#pragma region Private
+void QuadTree::PerformVisionChecks()
+{
+	static std::vector<TreeAgent*> bordercollisionguys;
+	bordercollisionguys.reserve(AppSettings::MaxUnits);
+	//If last branch - calculate all agent of tree
+	if (depthLevel == maxLevel)
+	{
+		for (auto& a1 : treeAgents)
+		{
+		for (auto& a2 : treeAgents)
+		{
+			a1->seeCount += a1->CanSeeAgent(a2);
+		}
+		}
+	}
+	////////////////////////////////////////////////////
+	else
+	{
+		for (auto& a1 : treeAgents)
+		{
+			bordercollisionguys.push_back(a1);
+		}
+		for (auto& t : childTreesArray)
+		{
+			t.PerformVisionChecks();
+		}
+	}
+	if (depthLevel == 0)
+	{
+		for (auto& a1 : bordercollisionguys)
+		{
+			for (auto& a2 : globalAgentMap)
+			{
+				a1->CanSeeAgent(&(a2.second));
+			}
+		}
+	}
+}
 
 uint32 QuadTree::NextID()
 {
@@ -125,9 +140,6 @@ void QuadTree::ClearStaticData()
 	rootPtr = nullptr;
 }
 
-
-
-////ToDo
 bool QuadTree::InsertAgentToTree (TreeAgent* agentPtr)
 {
 	if (!(depthLevel == maxLevel))
@@ -175,7 +187,4 @@ bool QuadTree::InsertAgentToTree (TreeAgent* agentPtr)
 		return true;
 	}
 }
-
-
-#pragma endregion Private
 

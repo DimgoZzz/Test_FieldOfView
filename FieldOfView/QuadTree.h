@@ -40,7 +40,7 @@ public:
 
 	void BuildTree();
 	void UpdateTree();
-	//void PerformVisionChecks();
+	void PerformVisionChecks();
 
 	void AddAgent(TreeAgent agent);
 private:

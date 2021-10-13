@@ -1,7 +1,12 @@
 #include "TreeAgent.h"
+#include <iostream>
+
+int64 TreeAgent::countCall = 0;
 
 bool TreeAgent::CanSeeAgent(TreeAgent* agent) const
 {
+	++countCall;
+	if (agent == this) { return false; }
 	FloatPoint distance = (agentLocation - agent->agentLocation).Abs();
 
 	if (pow(AppSettings::AgentSightRadius,2) >= distance.LengthPow2())

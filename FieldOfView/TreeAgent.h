@@ -25,4 +25,7 @@ public:
 
 	int32 seeCount = 0;
 	uint32 ID = 0;
+
+	//Delete
+	static int64 countCall;
 };

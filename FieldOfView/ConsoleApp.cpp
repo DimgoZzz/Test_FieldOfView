@@ -2,49 +2,54 @@
 #include "WinMin.h"
 #include <cstdlib>
 
-
 ConsoleApp::ConsoleApp()
 {
     renderer.Init(&quadTreePtr);
     quadTreePtr = QuadTree::MakeRoot();
 
     DogFW::HighResClock clock;
+    double secInit, secFill, secVisionCheck;
 
     ///////////////TreeInit
     clock.Measure();
    
     quadTreePtr->BuildTree();
-
-    std::cout << "QuadTree Init taked: " << clock.StopMeasure() << " ms" << std::endl;
-    ///////////////
+    secInit = clock.StopMeasure();
     
     ///////////////TreeFilling
     clock.Measure();
 
     //Fill Tree Randomly
     srand(4541);
-    for (int32 i = 0; i < 10000; ++i)
+    for (int32 i = 0; i < AppSettings::MaxUnits; ++i)
     {
-        quadTreePtr->AddAgent(TreeAgent((rand() % 4000) / 10.f, (rand() % 4000) / 10.f, (rand() % 10) / 10.f, (rand() % 10) / 10.f));
+        quadTreePtr->AddAgent(TreeAgent((rand() % 400) / 10.f, (rand() % 400) / 10.f, (rand() % 10) / 10.f, (rand() % 10) / 10.f));
     }
     quadTreePtr->UpdateTree();
-
-    std::cout << "QuadTree Filling taked: " << clock.StopMeasure() << " ms" << std::endl;
-    ///////////////
+    secFill = clock.StopMeasure();
     
     ///////////////AgentsVisionCheck
-    //clock.Measure();
-    //for (auto& agent : quadTreePtr->treeAgents)
-    //{
-    //   // for ()
-    //}
-    //for (int64 i = 0; i < 10000; ++i)
-    //{
-    //    //quadTreePtr->childTreesArray
-    //}
-    //std::cout << "Vision Checks taked: " << clock.StopMeasure() << " ms" << std::endl;
-    ///////////////
+    clock.Measure();
+    quadTreePtr->PerformVisionChecks();
+    secVisionCheck = clock.StopMeasure();
 
+
+    for (int32 i = 0; i < AppSettings::MaxUnits; ++i)
+    {
+        std::cout <<"Agent "<< i<<" see " << quadTreePtr->globalAgentMap.at(i).seeCount <<" Agents " << std::endl;
+    }
+    int64 t = 0;
+    for (int32 i = 0; i < AppSettings::MaxUnits; ++i)
+    {
+        t+= quadTreePtr->globalAgentMap.at(i).seeCount;
+    }
+
+    std::cout << "QuadTree Init taked: " << secInit << " ms" << std::endl;
+    std::cout << "QuadTree Filling taked: " << secFill << " ms" << std::endl;
+    std::cout << "Vision Checks taked: " << secVisionCheck << " ms" << std::endl;
+    std::cout << "Total Intersections : " << t << std::endl;
+    std::cout << "Total CanSee Calls :" << TreeAgent::countCall << std::endl;
+    
 }
 
 ConsoleApp::~ConsoleApp()
@@ -54,6 +59,7 @@ ConsoleApp::~ConsoleApp()
 
 void ConsoleApp::Start()
 {
+    renderer.DoFrame();
     while (renderer.GetWindowPtr()->isOpen())
     {
         sf::Event event;
@@ -62,6 +68,6 @@ void ConsoleApp::Start()
             if (event.type == sf::Event::Closed)
                 renderer.GetWindowPtr()->close();
         }
-        renderer.DoFrame();
+       // renderer.DoFrame();
     }
 }
