@@ -43,6 +43,9 @@
     <ClCompile Include="DataClasses.cpp">
       <Filter>Source Files\Data</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleApp.h">
@@ -68,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="TreeAgent.h">
       <Filter>Source Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Source Files\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

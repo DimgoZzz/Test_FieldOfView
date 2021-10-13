@@ -57,5 +57,6 @@ private:
 	static const int8 maxLevel = 2;
 
 	//For Rendering
+	friend class Renderer;
 	friend class ConsoleApp;
 };

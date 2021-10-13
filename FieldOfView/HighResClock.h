@@ -6,9 +6,10 @@ namespace DogFW
 	{
 	public:
 		HighResClock();
+
 		__int64 CurrentCount();
-		void Measure();
-		double StopMeasure();
+		void	Measure();
+		double	StopMeasure();
 		
 	private:
 		double mSecondsPerCount;
