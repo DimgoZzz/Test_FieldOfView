@@ -2,7 +2,7 @@
 #include "WinMin.h"
 
 #pragma region StaticInit
-uint32 QuadTree::lastID = 0;
+uint32 QuadTree::lastID = -1;
 QuadTree* QuadTree::rootPtr = nullptr;
 std::queue<TreeAgent*> QuadTree::instertQueue = std::queue<TreeAgent*>();
 std::unordered_map<uint32, TreeAgent> QuadTree::globalAgentMap = std::unordered_map<uint32, TreeAgent>();
@@ -78,12 +78,11 @@ void QuadTree::UpdateTree()
 	TreeAgent* agentref = nullptr;
 	while (!instertQueue.empty())
 	{
-	//	agentref = instertQueue.front();
-	//	bool succes = FeedAgentToTree(agentref);
-	//	if (!succes) { CritErr("Cant Feed Agent to Tree"); }
-	//	instertQueue.pop();
+		agentref = instertQueue.front();
+		bool succes = InsertAgentToTree(agentref);
+		if (!succes) { CritErr("Cant Feed Agent to Tree"); }
+		instertQueue.pop();
 	}
-
 }
 //
 //void QuadTree::PerformVisionChecks()
@@ -129,49 +128,54 @@ void QuadTree::ClearStaticData()
 
 
 ////ToDo
-//bool QuadTree::FeedAgentToTree(TreeAgent* agentPtr)
-//{
-//	if (isFinalBranch)
-//		//Insert
-//	{
-//		treeAgents.push_back(agentPtr);
-//		return true;
-//	}
-//	else
-//		//Find FinalBranch
-//	{
-//		int8 childcaneatagent = getQuadrant(*agentPtr, bounds);;
-//		//GetChildThatCanEatAgent()
-//		//for (int8 i=0; i<childTreesArray.size();++i)
-//		//{
-//		//	if (CanEatAgent(agentPtr)) { childcaneatagent = i; break; }
-//		//}
-//
-//		//FeedAgentToChile
-//		if (childcaneatagent != -1)
-//		{
-//			if (childTreesArray[childcaneatagent].FeedAgentToTree(agentPtr)) { return true; }
-//			else { CritErr("uhh"); };
-//		}
-//		//IfNoChildCanEat
-//		//Attach to self
-//		treeAgents.push_back(agentPtr);
-//
-//		return true;
-//	}
-//
-//	return false;
-//}
-//
-//bool QuadTree::CanEatAgent(TreeAgent* agentPtr)
-//{
-//	return	(bounds.left < agentPtr->GetLeftBound()) && (bounds.GetRight() > agentPtr->GetLeftBound()) &&
-//		(bounds.top < agentPtr->GetLeftBound()) && (bounds.GetBottom() > agentPtr->GetLeftBound());
-//}
+bool QuadTree::InsertAgentToTree (TreeAgent* agentPtr)
+{
+	if (!(depthLevel == maxLevel))
+	{
+		//Get Agent Pos Region
+		TreeDirection childRegion = GetQuadrant(agentPtr, &bounds);
+		
+		// Add the value in a child if the value is entirely contained in it
+		bool intersects = IntersectBounds(agentPtr, bounds);
+
+		//If intesects throw back, if not root
+		if (intersects)
+		{
+			if (depthLevel == 0)
+			{
+				treeAgents.push_back(agentPtr);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		//If No intersects
+		else
+		{
+			if (childRegion == TreeDirection::None)
+			{
+				treeAgents.push_back(agentPtr); 
+				return true; 
+			}
+
+			bool succ = childTreesArray[static_cast<int8>(childRegion)].InsertAgentToTree(agentPtr);
+			if (succ) { return succ; }
+			else 
+			{
+				treeAgents.push_back(agentPtr);
+				return true;
+			}
+		}
+	}
+	else 
+	{
+		treeAgents.push_back(agentPtr);
+		return true;
+	}
+}
+
 
 #pragma endregion Private
-
-
-
-
 

@@ -30,8 +30,9 @@ enum class PointToVectorPosition : int8
 	Right = 2
 };
 
-enum class TreeDirection :uint8
+enum class TreeDirection :int8
 {
+	None = -1,
 	NorthWest = 0,
 	NorthEast = 1,
 	SouthWest = 2,

@@ -44,7 +44,7 @@ public:
 
 	void AddAgent(TreeAgent agent);
 private:
-	//bool FeedAgentToTree(TreeAgent* agentPtr);
+	bool InsertAgentToTree(TreeAgent* agentPtr);
 	//bool CanEatAgent(TreeAgent* agentPtr);
 
 	//Tree Bounding Box

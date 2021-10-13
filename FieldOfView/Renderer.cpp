@@ -18,8 +18,9 @@ void Renderer::Init(QuadTree** qt)
 
 void Renderer::DoFrame()
 {
-    if (rects.empty()) { CollectTreeGridData(*quadTreePP); }
-    CollectTreeAgentsData(*quadTreePP);
+    if (rects.empty()) { CollectTreeGridData(*quadTreePP);   }
+    if (agents.empty()) { CollectTreeAgentsData(*quadTreePP); }
+
     windowPtr->clear(sf::Color::Black);
 
     for (int64 i = rects.size() - 1; i > -1; --i)

@@ -21,6 +21,7 @@ ConsoleApp::ConsoleApp()
     ///////////////TreeFilling
     clock.Measure();
 
+    //Fill Tree Randomly
     srand(4541);
     for (int32 i = 0; i < 10000; ++i)
     {
