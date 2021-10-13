@@ -17,6 +17,9 @@
     <Filter Include="Source Files\Data">
       <UniqueIdentifier>{95e58730-175e-421b-803c-244888abd34b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\World">
+      <UniqueIdentifier>{1e207b23-2aee-4d24-97f8-5ccf1039e3d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleApp.cpp">
@@ -35,6 +38,18 @@
       <Filter>Source Files\System\Windows</Filter>
     </ClCompile>
     <ClCompile Include="SSEVector.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTree.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeAgent.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="DataClasses.cpp">
       <Filter>Source Files\Data</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,6 +74,15 @@
     </ClInclude>
     <ClInclude Include="HighResClock.h">
       <Filter>Source Files\System\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Source Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Source Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeAgent.h">
+      <Filter>Source Files\World</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
