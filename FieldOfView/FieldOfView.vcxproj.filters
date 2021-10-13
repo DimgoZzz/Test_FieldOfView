@@ -8,9 +8,6 @@
     <Filter Include="Source Files\System">
       <UniqueIdentifier>{e5e8baca-5721-45fd-b0dd-71975dd79fcb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Units">
-      <UniqueIdentifier>{ad55923a-041b-4daf-820e-4d66ec292470}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\System\Windows">
       <UniqueIdentifier>{7b1f7f3a-cae9-4029-9d37-13525fc033a4}</UniqueIdentifier>
     </Filter>
