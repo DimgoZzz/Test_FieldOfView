@@ -46,6 +46,9 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
+    <ClCompile Include="FunctionLibrary.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleApp.h">
@@ -74,6 +77,9 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionLibrary.h">
+      <Filter>Source Files\Data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

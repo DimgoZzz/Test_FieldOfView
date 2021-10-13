@@ -83,14 +83,14 @@ void QuadTree::DoVisionChecks()
 		//Do checks with tree attached agents 
 		for (auto& a2 : treeAgents)
 		{
-			a1->seeCount += a1->CanSeeUnit(a2);
+			a1->seeCount += a1->CanSeeAgent(a2);
 		}
 		//Do Checks with child trees agents
 		for (auto& t1 : childTreesArray)
 		{
 			for (auto& a2 : t1.treeAgents)
 			{
-				a1->seeCount += a1->CanSeeUnit(a2);
+				a1->seeCount += a1->CanSeeAgent(a2);
 			}
 		}
 

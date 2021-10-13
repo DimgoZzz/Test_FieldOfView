@@ -99,6 +99,7 @@
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="ConsoleApp.cpp" />
     <ClCompile Include="DataClasses.cpp" />
+    <ClCompile Include="FunctionLibrary.cpp" />
     <ClCompile Include="HighResClock.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="QuadTree.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Box.h" />
     <ClInclude Include="ConsoleApp.h" />
     <ClInclude Include="DataClasses.h" />
+    <ClInclude Include="FunctionLibrary.h" />
     <ClInclude Include="HighResClock.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Renderer.h" />
